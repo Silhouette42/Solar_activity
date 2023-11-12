@@ -13,7 +13,7 @@ def get_aia_images_by_date(month=1, day=1, year=2012, filt='0304', minute_cadenc
                     + str(hour).zfill(2) + str(min).zfill(2) + '_' + filt + '.fits'
             url = base_url + shour + smin
             yield date, filt, str(hour).zfill(2) + str(min).zfill(2), read_fits_image(url)
--------------------------------------
+-----------------------------------------
 def get_aia_images_by_date(year=2023, filt='0335', day_cadence=2):
     '''
     Read FITS files with SDO images of the Sun for a given date and filter
