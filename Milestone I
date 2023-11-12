@@ -41,3 +41,19 @@ def get_aia_images_by_date(month=1, day=1, year=2012, filt='0304', day_cadence=2
         url = base_url + target_date + '/' + 'AIA' + target_date + '_' + filt + '.fits'
         yield target_date, filt, url
 
+_______________________
+def get_aia_image_urls(year=2023, filt='0335', day_cadence=2):
+
+    base_url = f'http://jsoc.stanford.edu/data/aia/synoptic/{year}/'
+    day_cadence = max(day_cadence, 2)
+
+    for month in range(1, 13): 
+        for day in range(1, 32, day_cadence):
+            formatted_month = str(month).zfill(2)
+            formatted_day = str(day).zfill(2)
+            url = f"{base_url}{formatted_month}/{formatted_day}/H0000/AIA{year}{formatted_month}{formatted_day}_0000_{filt}.fits"
+            yield url
+
+# Example usage:
+for url in get_aia_image_urls(2023, '0335', 2):
+    print(url)
