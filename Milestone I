@@ -1,0 +1,15 @@
+def get_aia_images_by_date(month=1, day=1, year=2012, filt='0304', minute_cadence=30):
+    '''
+    Read FITS files with SDO images of the Sun for a given date and filter
+    '''
+    base_url = 'http://jsoc.stanford.edu/data/aia/synoptic/' + str(year) + '/' + str(month).zfill(2)+'/'+str(day).zfill(2)+'/'
+    date = str(year) + str(month).zfill(2) + str(day).zfill(2)
+    
+    minute_cadence = max(minute_cadence, 2) # minimum cadence is 2 minutes
+    for hour in range(0, 24, 1):
+        for min in range(0, 60, minute_cadence):
+            shour = 'H' + str(hour).zfill(2) + '00/'
+            smin = 'AIA' + date + '_' \
+                    + str(hour).zfill(2) + str(min).zfill(2) + '_' + filt + '.fits'
+            url = base_url + shour + smin
+            yield date, filt, str(hour).zfill(2) + str(min).zfill(2), read_fits_image(url)
