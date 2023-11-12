@@ -32,12 +32,13 @@ def get_aia_images_by_date(year=2023, filt='0335', day_cadence=2):
 
 
 def get_aia_images_by_date(month=1, day=1, year=2012, filt='0304', day_cadence=2):
-    base_url = 'http://jsoc.stanford.edu/data/aia/synoptic/' + str(year) + '/' + str(month).zfill(2) + '/' + str(day).zfill(2) + '/'
+    base_url = 'http://jsoc.stanford.edu/data/aia/synoptic/' + str(year) + '/' + str(month).zfill(2) + '/' 
     date = str(year) + str(month).zfill(2) + str(day).zfill(2)
     day_cadence = max(day_cadence, 2)
+
     
-    for day_offset in range(0, 365, day_cadence):
+    for day_offset in range(0, 30, day_cadence):
         target_date = date + str(day_offset).zfill(2)
-        url = base_url + 'AIA' + target_date + '_' + filt + '.fits'
+        url = base_url + target_date + '/' + 'AIA' + target_date + '_' + filt + '.fits'
         yield target_date, filt, url
 
